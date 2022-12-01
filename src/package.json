@@ -1,0 +1,17 @@
+{
+  "name": "electron-tutorial---tutorialspoint",
+  "version": "1.0.0",
+  "description": "Following tutorial on https://www.tutorialspoint.com/electron/index.htm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tutorial"
+  ],
+  "author": "Doug Lockwood and TutorialsPoint.com",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.6.1"
+  }
+}
