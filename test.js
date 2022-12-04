@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="UTF-8">
-      <title>Menus</title>
-   </head>
-   
-   <body>
-      <button type="button" id="notify" name="button">
-         Click here to trigger a notification!</button>
-      <script type="text/javascript">
-         const notifier = require('node-notifier');
+const notifier = require('node-notifier');
          const path = require('path');
 
-         document.getElementById('notify').onclick = (event) => {
             notifier.notify ({
                title: 'My awesome title',
                message: 'Hello from electron, Mr. User!',
-               icon: path.join('','resources', 'images', 'Family 1.jpg'),  // Absolute path (doesn't work on balloons)
+               icon: path.join('','resources','images','Family 1.jpg'),  // Absolute path (doesn't work on balloons)
                sound: true,  // Only Notification Center or Windows Toasters
                wait: true    // Wait with callback, until user action is taken against notification
             
@@ -32,7 +20,3 @@
             notifier.on('timeout', function (notifierObject, options) {
                console.log("Notification timed out!");
             });
-         }
-      </script>
-   </body>
-</html>
