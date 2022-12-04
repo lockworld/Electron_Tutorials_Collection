@@ -7,5 +7,7 @@ In this repository, I will try to make a new branch for every tutorial that I fo
 
 ### TutorialsPoint: Electron Tutorial
 Started: 2022-11-20 Start 
+
 URL: https://www.tutorialspoint.com/electron
+
 Branch: [TutorialsPoint_ElectronTutorial](https://github.com/lockworld/Electron_Tutorials_Collection/tree/TutorialsPoint_ElectronTutorial)
