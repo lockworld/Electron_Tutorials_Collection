@@ -2,68 +2,23 @@
 <html>
    <head>
       <meta charset = "UTF-8">
-      <title>Audio and Video</title>
+      <title>File read using system dialogs</title>
    </head>
    
    <body>
-      <video autoplay></video>
+      <p>Press CTRL/CMD + O to open a file. </p>
       <script type = "text/javascript">
-         /*
-         function errorCallback(e) {
-            console.log('Error', e)
-         }
-
-         navigator.getUserMedia({video: true, audio: true}, (localMediaStream) => {
-            var video = document.querySelector('video')
-            video.src = window.URL.createObjectURL(localMediaStream)
-            video.onloadedmetadata = (e) => {
-               // Ready to go. Do some stuff.
-            };
-         }, errorCallback)
-
-})
-
-function handleStream (stream) {
-   document.querySelector('video').src = URL.createObjectURL(stream)
-}
-
-function handleError (e) {
-   console.log(e)
-}
-*/
-let desktopCapturer = require('electron').desktopCapturer;
-let fs = require('fs');
-
-desktopCapturer.getSources({types: ['window', 'screen']}, (error, sources) => {
-   if (error) throw error
-   for (let i = 0; i < sources.length; ++i) {
-      if (sources[i].name === 'Your Window Name here!') {
-         navigator.webkitGetUserMedia({
-            audio: false,
-            video: {
-               mandatory: {
-                  chromeMediaSource: 'desktop',
-                  chromeMediaSourceId: sources[i].id,
-                  minWidth: 1280,
-                  maxWidth: 1280,
-                  minHeight: 720,
-                  maxHeight: 720
-               }
-            }
-         }, handleStream, handleError)
-         return
-      }
-   }
-})
-
-function handleStream (stream) {
-   document.querySelector('video').src = URL.createObjectURL(stream)
-}
-
-function handleError (e) {
-   console.log(e)
-}
-         
+         const {ipcRenderer, remote} = require('electron')
+         const {globalShortcut} = remote
+         globalShortcut.register('CommandOrControl+O', () => {
+            ipcRenderer.send('openFile', () => {
+               console.log("Event sent.");
+            })
+            
+            ipcRenderer.on('fileData', (event, data) => {
+               document.write(data)
+            })
+         })
       </script>
    </body>
 </html>
