@@ -2,38 +2,68 @@
 <html>
    <head>
       <meta charset = "UTF-8">
-      <title>Menus</title>
+      <title>Audio and Video</title>
    </head>
    
    <body>
-      <div>
-         <div>
-            <h2>We have the website embedded below!</h2>
-         </div>
-         <div id="indicator"></div>
-         <webview id="foo" src="https://www.tutorialspoint.com/" style=
-            "width:400px; height:480px;">
-         </webview>
-      </div>
-      
+      <video autoplay></video>
       <script type = "text/javascript">
-         // Event handlers for loading events.
-         // Use these to handle loading screens, transitions, etc
-         onload = () => {
-            const webview = document.getElementById('foo')
-            const indicator = document.getElementById('indicator')
-
-            const loadstart = () => {
-               indicator.innerText = 'loading...'
-            }
-
-            const loadstop = () => {
-               indicator.innerHTML = '&nbsp;'
-            }
-
-            webview.addEventListener('did-start-loading', loadstart)
-            webview.addEventListener('did-stop-loading', loadstop)
+         /*
+         function errorCallback(e) {
+            console.log('Error', e)
          }
+
+         navigator.getUserMedia({video: true, audio: true}, (localMediaStream) => {
+            var video = document.querySelector('video')
+            video.src = window.URL.createObjectURL(localMediaStream)
+            video.onloadedmetadata = (e) => {
+               // Ready to go. Do some stuff.
+            };
+         }, errorCallback)
+
+})
+
+function handleStream (stream) {
+   document.querySelector('video').src = URL.createObjectURL(stream)
+}
+
+function handleError (e) {
+   console.log(e)
+}
+*/
+let desktopCapturer = require('electron').desktopCapturer;
+let fs = require('fs');
+
+desktopCapturer.getSources({types: ['window', 'screen']}, (error, sources) => {
+   if (error) throw error
+   for (let i = 0; i < sources.length; ++i) {
+      if (sources[i].name === 'Your Window Name here!') {
+         navigator.webkitGetUserMedia({
+            audio: false,
+            video: {
+               mandatory: {
+                  chromeMediaSource: 'desktop',
+                  chromeMediaSourceId: sources[i].id,
+                  minWidth: 1280,
+                  maxWidth: 1280,
+                  minHeight: 720,
+                  maxHeight: 720
+               }
+            }
+         }, handleStream, handleError)
+         return
+      }
+   }
+})
+
+function handleStream (stream) {
+   document.querySelector('video').src = URL.createObjectURL(stream)
+}
+
+function handleError (e) {
+   console.log(e)
+}
+         
       </script>
    </body>
 </html>
