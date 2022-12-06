@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="UTF-8">
+      <meta charset = "UTF-8">
       <title>Menus</title>
    </head>
    
    <body>
-      <button type="button" id="notify" name="button">
-         Click here to trigger a notification!</button>
-      <script type="text/javascript">
-         const notifier = require('node-notifier');
-         const path = require('path');
+      <div>
+         <div>
+            <h2>We have the website embedded below!</h2>
+         </div>
+         <div id="indicator"></div>
+         <webview id="foo" src="https://www.tutorialspoint.com/" style=
+            "width:400px; height:480px;">
+         </webview>
+      </div>
+      
+      <script type = "text/javascript">
+         // Event handlers for loading events.
+         // Use these to handle loading screens, transitions, etc
+         onload = () => {
+            const webview = document.getElementById('foo')
+            const indicator = document.getElementById('indicator')
 
-         document.getElementById('notify').onclick = (event) => {
-            notifier.notify ({
-               title: 'My awesome title',
-               message: 'Hello from electron, Mr. User!',
-               icon: path.join('','resources', 'images', 'Family 1.jpg'),  // Absolute path (doesn't work on balloons)
-               sound: true,  // Only Notification Center or Windows Toasters
-               wait: true    // Wait with callback, until user action is taken against notification
-            
-            }, function (err, response) {
-               // Response is response from notification
-               console.log(response);
-            });
+            const loadstart = () => {
+               indicator.innerText = 'loading...'
+            }
 
-            notifier.on('click', function (notifierObject, options) {
-               console.log("You clicked on the notification");
-            });
+            const loadstop = () => {
+               indicator.innerHTML = '&nbsp;'
+            }
 
-            notifier.on('timeout', function (notifierObject, options) {
-               console.log("Notification timed out!");
-            });
+            webview.addEventListener('did-start-loading', loadstart)
+            webview.addEventListener('did-stop-loading', loadstop)
          }
       </script>
    </body>
