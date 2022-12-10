@@ -1,0 +1,13 @@
+{
+  "version" : "1.0.0",
+  "configurations" : [
+    {
+    "name" : "Debug Main Process",
+    "type" : "node",
+    "request" : "launch",
+    "cwd" : "${workspaceRoot}\\src",
+    "runtimeExecutable" : "electron",
+    "program" : "${workspaceRoot}\\src\\main.js"
+    }
+  ]
+}
